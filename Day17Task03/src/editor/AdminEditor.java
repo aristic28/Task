@@ -12,12 +12,13 @@ public class AdminEditor implements Editor {
 	@Override
 	public User addUser() {
 		Scanner sc = new Scanner(System.in);
+		String username;
 		while(true)
 		{
 			System.out.println("username: ");
-			String username = sc.next();
-			// ako ne postoji stavi na true
-			break;
+			username = sc.next();
+			if(!AllUser.containUser(username))
+				break;
 		}
 		String repeatPassword = "";
 		String password = "";
@@ -36,26 +37,47 @@ public class AdminEditor implements Editor {
 			repeatPassword = sc.next();
 				}
 		
+		System.out.println("First name: ");
+		String firstname = sc.next();
+		System.out.println("Last name: ");
+		String lastname = sc.next();
+		System.out.println("Your role: (ADMIN or EDITOR)");
+		String role = sc.next();
 		
+		User user = new User(firstname, lastname, username, password, role);
 		
-		return null;
+		return user;
 	}
 
 	@Override
 	public void printAllUsers() {
-		// TODO Auto-generated method stub
 		
+		System.out.println("All Users:");
+		for(User u : AllUsers.userList)
+			System.out.println(u.toString());
 	}
 
 	@Override
 	public void printUser(User u) {
-		// TODO Auto-generated method stub
+		System.out.println(u.toString());
 		
 	}
 
 	@Override
 	public User changeUser(User u) {
-		// TODO Auto-generated method stub
+		System.out.println("What data do you want to change? (firstname, lastname, role)");
+		Scanner sc = new Scanner(System.in);
+		String data = sc.next();
+		System.out.println("New value:");
+		String change = sc.next();
+		User utemp;
+		if(data.equals("firstname"))
+			u.setFirstName(change);
+		if(data.equals("lastname"))
+			u.setLasName(change);
+		if(data.equals("role"))
+			u.setRole(change);
+		
 		return null;
 	}
 
