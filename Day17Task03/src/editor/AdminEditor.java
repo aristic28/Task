@@ -1,7 +1,5 @@
 package editor;
 
-import java.lang.reflect.Array;
-import java.util.List;
 import java.util.Scanner;
 
 import domain.AllUsers;
@@ -17,8 +15,13 @@ public class AdminEditor implements Editor {
 		{
 			System.out.println("username: ");
 			username = sc.next();
-			if(!AllUser.containUser(username))
-				break;
+			try {
+				if(!domain.AllUsers.containUser(username))
+					break;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		String repeatPassword = "";
 		String password = "";
@@ -45,7 +48,7 @@ public class AdminEditor implements Editor {
 		String role = sc.next();
 		
 		User user = new User(firstname, lastname, username, password, role);
-		
+		AllUsers.userList.add(user);
 		return user;
 	}
 
@@ -70,11 +73,10 @@ public class AdminEditor implements Editor {
 		String data = sc.next();
 		System.out.println("New value:");
 		String change = sc.next();
-		User utemp;
 		if(data.equals("firstname"))
 			u.setFirstName(change);
 		if(data.equals("lastname"))
-			u.setLasName(change);
+			u.setLastName(change);
 		if(data.equals("role"))
 			u.setRole(change);
 		
@@ -83,7 +85,7 @@ public class AdminEditor implements Editor {
 
 	@Override
 	public User deleteUser(User u) {
-		// TODO Auto-generated method stub
+		AllUsers.userList.remove(u);
 		return null;
 	}
 	

@@ -4,7 +4,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String username;
-    private String password;
+    private final String password;
     private String role;
 
     public User(String firstName, String lastName, String username, String password, String role) {
@@ -15,7 +15,19 @@ public class User {
         this.role = role;
     }
 
-    public String getFirstName() {
+    public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getFirstName() {
         return firstName;
     }
 
