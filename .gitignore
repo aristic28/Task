@@ -22,6 +22,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+<<<<<<< HEAD
 # Eclipse IDE 
 bin
 .settings
@@ -29,3 +30,7 @@ bin
 # IntelliJ IDE
 .idea
 /.metadata/
+=======
+# IntelliJ IDE
+.idea
+>>>>>>> b1c75f88410da407eae47e1bb27348c0b825292f
