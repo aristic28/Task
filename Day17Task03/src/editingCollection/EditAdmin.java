@@ -1,11 +1,11 @@
-package editor;
+package editingCollection;
 
 import java.util.Scanner;
 
 import domain.AllUsers;
 import domain.User;
 
-public class AdminEditor implements Editor {
+public class EditAdmin implements EditEditor {
 
 	@Override
 	public User addUser() {

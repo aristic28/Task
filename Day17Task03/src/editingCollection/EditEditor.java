@@ -1,8 +1,8 @@
-package editor;
+package editingCollection;
 
 import domain.User;
 
-public interface Editor {
+public interface EditEditor {
 	User addUser();
 	void printAllUsers();
 	void printUser(User u);
