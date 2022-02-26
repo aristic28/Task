@@ -3,12 +3,21 @@ package editingCollection;
 import java.util.Scanner;
 
 import domain.AllUsers;
+import domain.Role;
 import domain.User;
 
 public class EditAdmin implements EditEditor {
 
+	public boolean containsDigit(String s){
+		for(int i=0;i<s.length();i++)
+			if(Character.isDigit(s.charAt(i)))
+				return true;
+		return false;
+	}
+
 	@Override
 	public User addUser() {
+		int counterForLogin=4;
 		Scanner sc = new Scanner(System.in);
 		String username;
 		while(true)
@@ -18,6 +27,13 @@ public class EditAdmin implements EditEditor {
 			try {
 				if(!domain.AllUsers.containUser(username))
 					break;
+				counterForLogin-=1;
+				System.out.println("Your username somebody use. Please try different username, you have "+counterForLogin+ " chances");
+				if(counterForLogin==0) {
+					System.err.println("You dont have any chances");
+					System.exit(1);
+
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -30,8 +46,15 @@ public class EditAdmin implements EditEditor {
 			System.out.println("password: ");
 			password = sc.next();
 			char c = password.toUpperCase().charAt(0);
-			if ((c >= 'A' && c <='Z')  && password.contains("0123456789"))
+			if ((c >= 'A' && c <='Z')  && containsDigit(password))
 				break;
+			counterForLogin-=1;
+			System.out.println("Your password is weak, try again, you have "+counterForLogin+" chances");
+			if(counterForLogin==0) {
+				System.err.println("You dont have any chances");
+				System.exit(1);
+
+			}
 		}
 		
 		while(!password.equals(repeatPassword))
@@ -46,8 +69,12 @@ public class EditAdmin implements EditEditor {
 		String lastname = sc.next();
 		System.out.println("Your role: (ADMIN or EDITOR)");
 		String role = sc.next();
-		
-		User user = new User(firstname, lastname, username, password, role);
+		Role r=null;
+		switch (role){
+			case "ADMIN": r=Role.ADMIN;
+			case "EDITOR": r=Role.EDITOR;
+		}
+		User user = new User(firstname, lastname, username, password, r);
 		AllUsers.userList.add(user);
 		return user;
 	}
@@ -77,9 +104,14 @@ public class EditAdmin implements EditEditor {
 			u.setFirstName(change);
 		if(data.equals("lastname"))
 			u.setLastName(change);
-		if(data.equals("role"))
-			u.setRole(change);
-		
+		if(data.equals("role")) {
+			switch(change) {
+				case "ADMIN":
+					u.setRole(Role.ADMIN);
+				case "EDITOR":
+					u.setRole(Role.EDITOR);
+			}
+		}
 		return null;
 	}
 
